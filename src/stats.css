@@ -9,7 +9,7 @@
 .counts .stat-toggle[aria-pressed=true]{border-color:#b6c2d1;background:#eaf0f7}
 .stat-help{font-size:9px;line-height:1.5}
 @media(min-width:900px) and (orientation:landscape){
- .workspace{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr) 96px 12px}
+ .workspace{grid-template-rows:minmax(0,1.28fr) minmax(0,1.32fr) 96px 12px}
  .derived{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:6px}
  .middle{grid-template-columns:1.75fr 1fr}
  .summary{padding:2px 8px;gap:2px 8px;grid-template-rows:44px 44px}
@@ -44,3 +44,21 @@
 .grid-line{position:absolute;display:block;border:0;margin:0;padding:0}
 .grid-line.vertical{top:0;height:100%;border-left:1px solid #e2e6eb}
 .grid-line.horizontal{left:0;width:100%;border-top:1px solid #e2e6eb}
+
+/* Fill the cells more clearly while keeping pair dots inside their edges. */
+.board .cell>.mark:not(.slash){width:calc(var(--cell)*.88);height:calc(var(--cell)*.88);border-width:clamp(2.5px,calc(var(--cell)*.09),4px)}
+.board.big .cell>.mark{width:calc(var(--cell)*.88);height:calc(var(--cell)*.88);border-width:clamp(2.5px,calc(var(--cell)*.09),4px)}
+.board.bead .cell>.mark{border:0;font-size:clamp(11px,calc(var(--cell)*.5),23px)}
+.board.big .bpair{left:calc(50% - var(--cell)*.311 + .5px);top:calc(50% - var(--cell)*.311 + .5px)}
+.board.big .ppair{left:calc(50% + var(--cell)*.311 + .5px);top:calc(50% + var(--cell)*.311 + .5px)}
+.mark.slash{font-size:0!important;border:0!important;background:transparent!important;position:relative}
+.mark.slash::after{content:'';position:absolute;left:50%;top:50%;width:2.5px;height:100%;background:currentColor;border-radius:2px;transform:translate(-50%,-50%) rotate(45deg)}
+.board .mark.slash{width:calc(var(--cell)*.78);height:calc(var(--cell)*.78)}
+.board .mark.slash::after{width:clamp(2.5px,calc(var(--cell)*.12),4px)}
+.natural-dot{width:calc(var(--cell)*.33);height:calc(var(--cell)*.33);background:transparent;border:clamp(1.5px,calc(var(--cell)*.065),3px) solid #f9ce42}
+.special-badge{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:calc(var(--cell)*.56);line-height:1;z-index:2}
+.board.big .special-badge{left:calc(50% + .5px);top:calc(50% + .5px);transform:translate(-50%,-50%);width:calc(var(--cell)*.62);height:calc(var(--cell)*.62)}
+.board.bead .special-badge{right:0;top:0;font-size:calc(var(--cell)*.4)}
+.board.bead .pair{width:calc(var(--cell)*.2);height:calc(var(--cell)*.2);right:auto;bottom:auto;transform:translate(-50%,-50%)}
+.board.bead .bpair{left:calc(50% - var(--cell)*.311);top:calc(50% - var(--cell)*.311)}
+.board.bead .ppair{left:calc(50% + var(--cell)*.311);top:calc(50% + var(--cell)*.311)}
