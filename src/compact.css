@@ -1,0 +1,21 @@
+.grid{min-width:100%}
+@media(min-width:900px) and (max-height:950px){
+ header{height:60px}
+ .board.big{--cell:32px}
+ .derived{--cell:10px}
+ .derived .grid{height:60px}
+ .derived .board-title{height:18px}
+ .derived .mark{width:8px;height:8px;border-width:1.5px}
+ .derived .slash{font-size:14px;line-height:8px}
+ .middle>.bead{--cell:36px}
+ .middle>.bead .grid{min-height:244px}
+ .summary{padding:4px 12px}
+ .counts strong{font-size:22px}
+ footer{padding-top:6px}
+ .input-meta{margin-bottom:4px}
+ .results{margin-top:7px}
+ .result{height:60px}
+ .mark{width:23px;height:23px}
+ .bpair{left:calc(50% - 12px);top:calc(50% - 12px)}
+ .ppair{right:calc(50% - 12px);bottom:calc(50% - 12px)}
+}
