@@ -1,8 +1,9 @@
 import {describe,it,expect} from 'vitest';
-import {emptyFlags,roads,place,preview,validGame,validateBackup,type Game} from './engine';
+import {displayRoad,emptyFlags,roads,place,preview,validGame,validateBackup,type Game} from './engine';
 const games=(s:string)=>[...s].map((winner,i)=>({...emptyFlags(),winner,id:String(i),at:'2026-11-16T00:00:00Z'} as Game));
 const colors=(s:string)=>roads(games(s)).derived.map(a=>a.map(c=>c.value).join(''));
 describe('roads',()=>{
+it('shows ties in independent cells and preserves every game flag',()=>{const g=games('TTPPTTBP');g[0].pPair=true;g[4].bPair=true;g[5].natural=true;const shown=displayRoad(g);expect(shown.map(c=>[c.x,c.y,c.value])).toEqual([[0,0,'T'],[0,1,'T'],[1,0,'P'],[1,1,'P'],[2,0,'T'],[2,1,'T'],[3,0,'B'],[4,0,'P']]);expect(shown.map(c=>c.games[0])).toEqual(g);expect(roads(g).derived).toEqual(roads(g.filter(g=>g.winner!=='T')).derived);expect(displayRoad(g.slice(0,-1))).toEqual(shown.slice(0,-1));});
 it('places runs, bottom turns, and next columns',()=>{expect(place([...('PPPPPPPPBB')]).map(c=>[c.x,c.y])).toEqual([[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[1,5],[2,5],[1,0],[1,1]]);});
 it('turns at a collision and stays horizontal',()=>{const c=place([...('PPPPPPPPBBBBBBBB')]);expect(c.slice(8).map(c=>[c.x,c.y])).toEqual([[1,0],[1,1],[1,2],[1,3],[1,4],[2,4],[3,4],[4,4]]);});
 it('alternates across row zero',()=>expect(place([...'PBPBPB']).map(c=>[c.x,c.y])).toEqual([[0,0],[1,0],[2,0],[3,0],[4,0],[5,0]]));

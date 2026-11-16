@@ -6,6 +6,8 @@ export type Data={version:1;currentId:string;shoes:Shoe[]};
 export const emptyFlags=():Flags=>({pPair:false,bPair:false,natural:false,dragon:false,panda:false});
 export function validGame(g:Game){return ['P','B','T'].includes(g.winner)&&!(g.dragon&&g.winner!=='B')&&!(g.panda&&g.winner!=='P')&&[g.natural,g.dragon,g.panda].filter(Boolean).length<=1;}
 export type Cell={x:number;y:number;value:string;games:Game[]};
+// Visible custom main road includes ties; derived roads use the standard P/B road.
+export function displayRoad(games:Game[]):Cell[]{return place(games.map(g=>g.winner)).map((cell,i)=>({...cell,games:[games[i]]}));}
 // A run keeps moving horizontally after its first collision/bottom turn.
 export function place(values:string[]):Cell[]{const cells:Cell[]=[];const used=new Set<string>();let start=-1,x=0,y=0,turned=false;values.forEach((v,i)=>{if(i===0||v!==values[i-1]){start++;x=start;y=0;turned=false;while(used.has(`${x},0`))x++;start=x;}else if(!turned&&y<5&&!used.has(`${x},${y+1}`)){y++;}else{turned=true;x++;while(used.has(`${x},${y}`))x++;}used.add(`${x},${y}`);cells.push({x,y,value:v,games:[]});});return cells;}
 export function roads(games:Game[]){const decisive=games.filter(g=>g.winner!=='T');const big=place(decisive.map(g=>g.winner));let i=-1;const leading:Game[]=[];for(const g of games){if(g.winner==='T'){if(i<0)leading.push(g);else big[i].games.push(g);}else{ i++;big[i].games.push(...(i===0?leading:[]),g);}}
