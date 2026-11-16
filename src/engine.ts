@@ -3,6 +3,11 @@ export type Flags={pPair:boolean;bPair:boolean;natural:boolean;dragon:boolean;pa
 export type Game=Flags & {id:string;winner:Winner;at:string};
 export type Shoe={id:string;number:number;createdAt:string;games:Game[]};
 export type Data={version:1;currentId:string;shoes:Shoe[]};
+export function deleteShoe(data:Data,id:string):Data{
+ if(id===data.currentId)throw Error('記録中のシューは削除できません');
+ if(!data.shoes.some(s=>s.id===id))throw Error('削除するシューが見つかりません');
+ return {...data,shoes:data.shoes.filter(s=>s.id!==id)};
+}
 export const emptyFlags=():Flags=>({pPair:false,bPair:false,natural:false,dragon:false,panda:false});
 export function validGame(g:Game){return ['P','B','T'].includes(g.winner)&&!(g.dragon&&g.winner!=='B')&&!(g.panda&&g.winner!=='P')&&[g.natural,g.dragon,g.panda].filter(Boolean).length<=1;}
 export type Cell={x:number;y:number;value:string;games:Game[]};

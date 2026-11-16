@@ -26,3 +26,9 @@
 .natural-dot{position:absolute;width:calc(var(--cell)*.22);height:calc(var(--cell)*.22);border-radius:50%;background:#f9ce42;z-index:2;pointer-events:none}
 .board.big .natural-game .mark{background:currentColor}
 .board.bead .natural-dot{top:2px;right:2px}
+.history-item{display:flex;align-items:center;gap:8px}
+.history-item .history-row{flex:1;min-width:0}
+.delete-shoe{color:#b42c3c;border-color:#ebc7cd;padding:0 12px;min-width:60px;flex-shrink:0}
+.delete-actions{display:flex;gap:10px;margin-top:20px}
+.delete-actions button{flex:1;padding:10px}
+.danger{background:#bb3040;color:white;border-color:#bb3040}
