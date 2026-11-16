@@ -9,7 +9,9 @@
 .counts .stat-toggle[aria-pressed=true]{border-color:#b6c2d1;background:#eaf0f7}
 .stat-help{font-size:9px;line-height:1.5}
 @media(min-width:900px) and (orientation:landscape){
- .workspace{grid-template-rows:minmax(0,.85fr) minmax(0,1.45fr) 96px 12px}
+ .workspace{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr) 96px 12px}
+ .derived{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:6px}
+ .middle{grid-template-columns:1.75fr 1fr}
  .summary{padding:2px 8px;gap:2px 8px;grid-template-rows:44px 44px}
  .counts{gap:12px}
  .counts .stat-toggle{padding:0 4px;min-width:58px}
@@ -32,3 +34,8 @@
 .delete-actions{display:flex;gap:10px;margin-top:20px}
 .delete-actions button{flex:1;padding:10px}
 .danger{background:#bb3040;color:white;border-color:#bb3040}
+.board.big .cell>.mark{position:absolute;left:calc(50% + .5px);top:calc(50% + .5px);transform:translate(-50%,-50%);margin:0;width:calc(var(--cell)*.76);height:calc(var(--cell)*.76);border-width:2px;flex-shrink:0}
+.board.big .natural-dot{left:calc(50% + .5px);top:calc(50% + .5px);transform:translate(-50%,-50%)}
+.board.big .pair{width:calc(var(--cell)*.2);height:calc(var(--cell)*.2);right:auto;bottom:auto;transform:translate(-50%,-50%)}
+.board.big .bpair{left:calc(50% - var(--cell)*.269 + .5px);top:calc(50% - var(--cell)*.269 + .5px)}
+.board.big .ppair{left:calc(50% + var(--cell)*.269 + .5px);top:calc(50% + var(--cell)*.269 + .5px)}
