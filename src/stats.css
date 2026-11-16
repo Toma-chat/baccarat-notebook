@@ -23,3 +23,6 @@
  .stat-toggle{gap:5px}
  .stat-toggle small{font-size:10px}
 }
+.natural-dot{position:absolute;width:calc(var(--cell)*.22);height:calc(var(--cell)*.22);border-radius:50%;background:#f9ce42;z-index:2;pointer-events:none}
+.board.big .natural-game .mark{background:currentColor}
+.board.bead .natural-dot{top:2px;right:2px}
