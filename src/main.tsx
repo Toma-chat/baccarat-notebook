@@ -6,6 +6,7 @@ import {Board,Mark} from './Board';
 import './style.css';
 import './compact.css';
 import './stats.css';
+import './layout.css';
 const labels:Record<keyof Flags,string>={pPair:'Pペア',bPair:'Bペア',natural:'ナチュラル',dragon:'🐲 ドラゴン7',panda:'🐼 パンダ8'};
 function Stat({label,count,total,tone='',percent,onToggle}:{label:string;count:number;total:number;tone?:string;percent:boolean;onToggle:()=>void}){return <button className={`stat-toggle ${tone}`} onClick={onToggle} aria-pressed={percent} aria-label={`${label} ${percent?`${total?((count/total)*100).toFixed(1):'0.0'}%`:`${count}回`}。タップで${percent?'回数':'総ゲーム数に対する割合'}に切替`} title="タップで全項目の回数・割合を一括切替（総ゲーム数が分母）"><small>{label}</small><strong>{percent?`${total?((count/total)*100).toFixed(1):'0.0'}%`:count}</strong></button>;}
 function App(){const [deleteId,setDeleteId]=useState<string>();const [statsPercent,setStatsPercent]=useState(false);const [data,setData]=useState<Data>();const [view,setView]=useState('');const [flags,setFlags]=useState(emptyFlags);const [panel,setPanel]=useState('');const [detail,setDetail]=useState<Cell>();const [error,setError]=useState('');const [status,setStatus]=useState('読み込み中');const [busy,setBusy]=useState(false);const [online,setOnline]=useState(navigator.onLine);const [pending,setPending]=useState<Data>();const lock=useRef(false);const file=useRef<HTMLInputElement>(null);

@@ -1,0 +1,35 @@
+/* A: the bead plate has its own tall column; derived roads stay compact. */
+@media(min-width:900px) and (orientation:landscape){
+ .workspace{
+  grid-template-columns:minmax(0,1.9fr) minmax(0,1fr);
+  grid-template-rows:minmax(0,1fr) clamp(72px,calc((100dvh - 340px)*.507692),150px) 96px 12px;
+  grid-template-areas:'main bead' 'derived bead' 'summary bead' 'legend legend';
+  column-gap:10px;
+ }
+ .workspace>.board.big{grid-area:main}
+ .middle{display:contents}
+ .derived{grid-area:derived}
+ .middle>.board.bead{grid-area:bead}
+ .summary{grid-area:summary;min-width:0;grid-template-columns:minmax(0,1fr) auto;gap:2px 6px}
+ .legend{grid-area:legend}
+ .counts{gap:4px;min-width:0}
+ .counts>div{gap:5px}
+ .counts .stat-toggle{min-width:50px;gap:5px;padding:0 3px}
+ .counts strong{font-size:20px}
+ .stat-help{display:none}
+ .previews{gap:8px}
+ .previews>small{font-size:9px;max-width:54px}
+ .previews>div{gap:3px;font-size:10px}
+ .previews span{width:17px}
+ .extra-stats{gap:4px}
+ .extra-stats .stat-toggle{gap:5px;padding:3px}
+ .extra-stats .stat-toggle small{font-size:10px}
+ .extra-stats .stat-toggle strong{font-size:17px}
+ .board.bead .cell>.mark{font-size:clamp(16px,calc(var(--cell)*.5),38px)}
+ .board.bead .special-badge{font-size:calc(var(--cell)*.32)}
+}
+@media(min-width:900px) and (max-width:1100px) and (orientation:landscape){
+ .extra-stats .stat-toggle{flex-direction:column;gap:0;line-height:1.15}
+ .previews{gap:4px}
+ .previews>small{display:none}
+}

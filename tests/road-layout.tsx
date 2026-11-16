@@ -6,6 +6,7 @@ import {displayRoad,emptyFlags,roads,type Game} from '../src/engine';
 import '../src/style.css';
 import '../src/compact.css';
 import '../src/stats.css';
+import '../src/layout.css';
 const count=new URLSearchParams(location.search).has('sample')?40:2400;
 const games:Game[]=Array.from({length:count},(_,i)=>({...emptyFlags(),id:String(i),at:'2026-11-16T00:00:00Z',winner:Math.floor(i/8)%2?'B':'P',natural:i%11===0,dragon:i%11!==0&&Math.floor(i/8)%2===1&&i%13===0,panda:i%11!==0&&Math.floor(i/8)%2===0&&i%7===0,pPair:i%19===0,bPair:i%23===0}));
 const r=roads(games);
