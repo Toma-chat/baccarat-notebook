@@ -39,3 +39,8 @@
 .board.big .pair{width:calc(var(--cell)*.2);height:calc(var(--cell)*.2);right:auto;bottom:auto;transform:translate(-50%,-50%)}
 .board.big .bpair{left:calc(50% - var(--cell)*.269 + .5px);top:calc(50% - var(--cell)*.269 + .5px)}
 .board.big .ppair{left:calc(50% + var(--cell)*.269 + .5px);top:calc(50% + var(--cell)*.269 + .5px)}
+.grid{background-image:none}
+.grid-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.grid-line{position:absolute;display:block;border:0;margin:0;padding:0}
+.grid-line.vertical{top:0;height:100%;border-left:1px solid #e2e6eb}
+.grid-line.horizontal{left:0;width:100%;border-top:1px solid #e2e6eb}
