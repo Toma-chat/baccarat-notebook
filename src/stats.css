@@ -55,7 +55,7 @@
 .mark.slash::after{content:'';position:absolute;left:50%;top:50%;width:2.5px;height:100%;background:currentColor;border-radius:2px;transform:translate(-50%,-50%) rotate(45deg)}
 .board .mark.slash{width:calc(var(--cell)*.78);height:calc(var(--cell)*.78)}
 .board .mark.slash::after{width:clamp(2.5px,calc(var(--cell)*.12),4px)}
-.natural-dot{width:calc(var(--cell)*.33);height:calc(var(--cell)*.33);background:transparent;border:clamp(1.5px,calc(var(--cell)*.065),3px) solid #f9ce42}
+.natural-dot{width:calc(var(--cell)*.46);height:calc(var(--cell)*.46);background:#f9ce42;border:0}
 .special-badge{position:absolute;display:flex;align-items:center;justify-content:center;pointer-events:none;font-size:calc(var(--cell)*.56);line-height:1;z-index:2}
 .board.big .special-badge{left:calc(50% + .5px);top:calc(50% + .5px);transform:translate(-50%,-50%);width:calc(var(--cell)*.62);height:calc(var(--cell)*.62)}
 .board.bead .special-badge{right:0;top:0;font-size:calc(var(--cell)*.4)}
