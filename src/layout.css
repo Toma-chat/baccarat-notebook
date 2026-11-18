@@ -1,3 +1,9 @@
+/* Keep bead letters centered independently of font line-height and badges. */
+.board.bead .cell>.mark{display:flex;align-items:center;justify-content:center;line-height:1}
+.board.bead .mark::after{content:none}
+.bead-letter{display:block;line-height:1;transform:translateY(.045em)}
+.board.bead .natural-dot{width:calc(var(--cell)*.22);height:calc(var(--cell)*.22);top:calc(var(--cell)*.035);right:calc(var(--cell)*.035)}
+
 /* A: the bead plate has its own tall column; derived roads stay compact. */
 @media(min-width:900px) and (orientation:landscape){
  .workspace{
