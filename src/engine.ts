@@ -1,5 +1,5 @@
 export type Winner='P'|'B'|'T';
-export type Flags={pPair:boolean;bPair:boolean;natural:boolean;dragon:boolean;panda:boolean};
+export type Flags={pPair:boolean;bPair:boolean;natural:boolean;super6:boolean;dragon:boolean;panda:boolean};
 export type Game=Flags & {id:string;winner:Winner;at:string};
 export type Shoe={id:string;number:number;createdAt:string;games:Game[]};
 export type Data={version:1;currentId:string;shoes:Shoe[]};
@@ -8,8 +8,8 @@ export function deleteShoe(data:Data,id:string):Data{
  if(!data.shoes.some(s=>s.id===id))throw Error('削除するシューが見つかりません');
  return {...data,shoes:data.shoes.filter(s=>s.id!==id)};
 }
-export const emptyFlags=():Flags=>({pPair:false,bPair:false,natural:false,dragon:false,panda:false});
-export function validGame(g:Game){return ['P','B','T'].includes(g.winner)&&!(g.dragon&&g.winner!=='B')&&!(g.panda&&g.winner!=='P')&&[g.natural,g.dragon,g.panda].filter(Boolean).length<=1;}
+export const emptyFlags=():Flags=>({pPair:false,bPair:false,natural:false,super6:false,dragon:false,panda:false});
+export function validGame(g:Game){return ['P','B','T'].includes(g.winner)&&!((g.dragon||g.super6)&&g.winner!=='B')&&!(g.panda&&g.winner!=='P')&&[g.natural,g.super6,g.dragon,g.panda].filter(Boolean).length<=1;}
 export type Cell={x:number;y:number;value:string;games:Game[]};
 // Visible custom main road includes ties; derived roads use the standard P/B road.
 export function displayRoad(games:Game[]):Cell[]{return place(games.map(g=>g.winner)).map((cell,i)=>({...cell,games:[games[i]]}));}
@@ -24,4 +24,4 @@ return {big,derived:derived.map(place)};}
 export function preview(games:Game[],winner:'P'|'B'){const before=roads(games).derived;const after=roads([...games,{...emptyFlags(),id:'preview',at:'',winner}]).derived;return after.map((a,i)=>a.length>before[i].length?a.at(-1)!.value:null);}
 export function newShoe(number:number):Shoe{return {id:crypto.randomUUID(),number,createdAt:new Date().toISOString(),games:[]};}
 export function initial():Data{const s=newShoe(1);return {version:1,currentId:s.id,shoes:[s]};}
-export function validateBackup(v:unknown):Data{if(!v||typeof v!=='object')throw Error('JSON形式が不正です');const d=v as Data;if(d.version!==1||!Array.isArray(d.shoes)||!d.shoes.length||d.shoes.length>10000)throw Error('対応しないバックアップです');const ids=new Set<string>();for(const s of d.shoes){if(typeof s.id!=='string'||ids.has(s.id)||!Number.isInteger(s.number)||s.number<1||typeof s.createdAt!=='string'||!Number.isFinite(Date.parse(s.createdAt))||!Array.isArray(s.games)||s.games.length>100000)throw Error('シュー形式が不正です');ids.add(s.id);const gi=new Set<string>();for(const g of s.games){if(!g||typeof g.id!=='string'||gi.has(g.id)||typeof g.at!=='string'||!Number.isFinite(Date.parse(g.at))||Object.keys(emptyFlags()).some(k=>typeof g[k as keyof Flags]!=='boolean')||!validGame(g))throw Error('ゲーム形式・付加情報が不正です');gi.add(g.id);}}if(!ids.has(d.currentId))throw Error('現在のシューが不正です');return d;}
+export function validateBackup(v:unknown):Data{if(!v||typeof v!=='object')throw Error('JSON形式が不正です');const d=v as Data;if(d.version!==1||!Array.isArray(d.shoes)||!d.shoes.length||d.shoes.length>10000)throw Error('対応しないバックアップです');const ids=new Set<string>();for(const s of d.shoes){if(typeof s.id!=='string'||ids.has(s.id)||!Number.isInteger(s.number)||s.number<1||typeof s.createdAt!=='string'||!Number.isFinite(Date.parse(s.createdAt))||!Array.isArray(s.games)||s.games.length>100000)throw Error('シュー形式が不正です');ids.add(s.id);const gi=new Set<string>();for(const g of s.games){if(!g||typeof g.id!=='string'||gi.has(g.id)||typeof g.at!=='string'||!Number.isFinite(Date.parse(g.at))||Object.keys(emptyFlags()).some(k=>!(k==='super6'&&g.super6===undefined)&&typeof g[k as keyof Flags]!=='boolean')||!validGame(g))throw Error('ゲーム形式・付加情報が不正です');gi.add(g.id);}}if(!ids.has(d.currentId))throw Error('現在のシューが不正です');return {...d,shoes:d.shoes.map(s=>({...s,games:s.games.map(g=>({...g,super6:g.super6??false}))}))};}
