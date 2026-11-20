@@ -1,0 +1,19 @@
+main{--player:var(--red);--banker:var(--blue)}
+main.colors-inverted{--player:var(--blue);--banker:var(--red)}
+.P,.pPair{color:var(--player,var(--red))}
+.B,.bPair{color:var(--banker,var(--blue))}
+.result.P,.board.bead .mark.P,.ppair{background:var(--player,var(--red))}
+.result.B,.board.bead .mark.B,.bpair{background:var(--banker,var(--blue))}
+.result.P,.result.B{color:white}
+.board.big .mark.is-super6{border-color:var(--banker,var(--blue))}
+main[data-natural-style=hollow] .board.big .natural-game .mark{background:transparent}
+.display-settings{border-bottom:1px solid #e0e5eb;padding-bottom:16px}
+.display-settings h3{font-size:16px;margin:0 0 12px}
+.display-settings fieldset{margin:12px 0;padding:0;border:0;min-width:0}
+.display-settings legend{font-size:13px;font-weight:650;margin-bottom:8px}
+.setting-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.setting-options button{padding:8px;font-size:12px;min-height:44px}
+.setting-options button[aria-pressed=true]{border:2px solid #263a53;background:#edf2f8;font-weight:700}
+.setting-options button[aria-pressed=true]::before{content:'✓ ';}
+.display-settings .settings-note{font-size:11px;line-height:1.7;margin:8px 0}
+.settings-error{color:#b82c3d;font-size:12px}
